@@ -79,6 +79,6 @@ Delete connector:
 
 
 Test   
-`docker run --net=kafka-cluster -it twitter-sqream-pipeline_sqreamd_1 bash -c "./sqream/build/ClientCmd --user=sqream --password=sqream -d master"`  
+`docker run -it twitter-sqream-pipeline_sqreamd_1 bash -c "./sqream/build/ClientCmd --user=sqream --password=sqream -d master"`  
 
 
