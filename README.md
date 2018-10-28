@@ -74,6 +74,11 @@ To restart connector:
 Delete connector:  
 `curl -X DELETE localhost:8083/connectors/source-twitter`  
 
+### Create _SQream Sink Connector_
+`echo '{"name":"sqream-sink","config":{"connector.class":"JdbcSinkConnector","connection.url":"jdbc:Sqream://192.168.0.212:5000/master","connection.user":"sqream","connection.password":"sqream","tasks.max":"1","topics":"twitter","insert.mode":"insert","table.name.format":"twitter","fields.whitelist":"Id,CreatedAt,Text,Source,Truncated,InReplyToStatusId,InReplyToUserId,Favorited,Retweeted,FavoriteCount"}}' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"`  
+
+
+
 
 
 
