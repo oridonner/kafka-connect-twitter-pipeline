@@ -44,3 +44,17 @@ You shoud see _Twitter_ connector plugin among other built in connectors:
     "version": "0.2-SNAPSHOT"  
   },  
   
+# Build Connectors
+### Build _Twitter Source Connector_
+Before starting the connector check existing topics:  
+`docker run --net=kafka-cluster --rm confluentinc/cp-kafka:5.0.0 kafka-topics --zookeeper zookeeper:32181 --list`  
+
+If **Twitter** topic exists, delete it:  
+`docker run --net=kafka-cluster --rm confluentinc/cp-kafka:5.0.0 kafka-topics --zookeeper zookeeper:32181 --delete --topic twitter` 
+ 
+ Create _Twitter Source Connector_ via REST API call to _kafka connect_ listens on 8083 port:
+ `echo '{"name":"source-twitter","config":{"connector.class":"com.github.jcustenborder.kafka.connect.twitter.TwitterSourceConnector","tasks.max":"1","twitter.oauth.consumerKey":"WyBAPqB21h196UyENZATSnL3F","twitter.oauth.consumerSecret":"jQtSGi0tynigU51EkSfCNahqrBkHE18cH0xU2FttVzTKpNbcJO","twitter.oauth.accessToken":"908270057641463809-iju88vZOOTl2hiROMRA1XGLG1CnQPKI","twitter.oauth.accessTokenSecret":"r4L9oXix5wqoAD5GNIMtjRJOHuVO65mWLynhmmnD7sOW1","filter.keywords":"programming,java,kafka,scala","kafka.status.topic":"twitter","kafka.delete.topic":"twitter_del","process.deletes":"true"}}'| curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"`  
+
+
+
+
