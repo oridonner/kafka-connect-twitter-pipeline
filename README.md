@@ -27,12 +27,12 @@ Code examples from [here](https://github.com/confluentinc/schema-registry#quicks
 
 Register a new version of a schema under the subject "Kafka-key"  
 `curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" --data '{"schema": "{\"type\": \"string\"}"}' http://localhost:8081/subjects/Kafka-key/versions`  
-
-Register a new version of a schema under the subject "Kafka-value":  
-`curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" --data '{"schema": "{\"type\": \"string\"}"}' http://localhost:8081/subjects/Kafka-value/versions`  
      
 List all subjects:  
 `curl -X GET http://localhost:8081/subjects | jq`  
+
+Delete subject:  
+`curl -X DELETE http://localhost:8081/subjects/Kafka-key`  
 
 ### Test _kafka connect_
 Check connector plugins:  
