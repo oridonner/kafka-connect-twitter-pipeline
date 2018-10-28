@@ -1,4 +1,3 @@
-
 # Start _Kafka Cluster_
 Before starting up the cluster create a storage folder for _sqream storage_ inside local **data** folder:  
 `docker run --rm -v $(pwd)/data:/mnt sqream:2.15-dev bash -c "./sqream/build/SqreamStorage -C -r /mnt/sqream_storage"`  
@@ -11,6 +10,16 @@ This command will start _sqreamd_, _zookeeper_, 2 _kafka_ brokers (broker-1, bro
 # Tests
 First check status of the containers:  
 `docker-compose ps`  
+You should get this results:  
+>                   Name                               Command            State                           Ports                        
+-------------------------------------------------------------------------------------------------------------------------------------  
+twitter-sqream-pipeline_broker-1_1          /etc/confluent/docker/run   Up      0.0.0.0:9092->9092/tcp                               
+twitter-sqream-pipeline_broker-2_1          /etc/confluent/docker/run   Up      9092/tcp, 0.0.0.0:9093->9093/tcp                     
+twitter-sqream-pipeline_connect_1           /etc/confluent/docker/run   Up      0.0.0.0:8083->8083/tcp, 9092/tcp                     
+twitter-sqream-pipeline_schema-registry_1   /etc/confluent/docker/run   Up      0.0.0.0:8081->8081/tcp                               
+twitter-sqream-pipeline_sqreamd_1           ./sqream/build/sqreamd      Up      0.0.0.0:5000->5000/tcp                               
+twitter-sqream-pipeline_zookeeper_1         /etc/confluent/docker/run   Up      2181/tcp, 2888/tcp, 0.0.0.0:2181->32181/tcp, 3888/tcp  
+
 If all containers  are up and running start the following funcionality tests.  
 
 ### Test _Kafka Broker_
