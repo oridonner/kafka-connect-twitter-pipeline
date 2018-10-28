@@ -10,14 +10,6 @@ This command will start _sqreamd_, _zookeeper_, 2 _kafka_ brokers (broker-1, bro
 # Tests
 First check status of the containers:  
 `docker-compose ps`  
-You should get this results:  
-> twitter-sqream-pipeline_broker-1_1          /etc/confluent/docker/run   Up      0.0.0.0:9092->9092/tcp  
-twitter-sqream-pipeline_broker-2_1          /etc/confluent/docker/run   Up      9092/tcp, 0.0.0.0:9093->9093/tcp  
-twitter-sqream-pipeline_connect_1           /etc/confluent/docker/run   Up      0.0.0.0:8083->8083/tcp, 9092/tcp  
-twitter-sqream-pipeline_schema-registry_1   /etc/confluent/docker/run   Up      0.0.0.0:8081->8081/tcp                     
-twitter-sqream-pipeline_sqreamd_1           ./sqream/build/sqreamd      Up      0.0.0.0:5000->5000/tcp                               
-twitter-sqream-pipeline_zookeeper_1         /etc/confluent/docker/run   Up      2181/tcp, 2888/tcp, 0.0.0.0:2181->32181/tcp, 3888/tcp  
-
 If all containers  are up and running start the following funcionality tests.  
 
 ### Test _Kafka Broker_
@@ -29,7 +21,6 @@ List all existing topics:
 
 Delete testing topic:  
 `docker run --net=kafka-cluster --rm confluentinc/cp-kafka:5.0.0 kafka-topics --delete --topic foo --zookeeper zookeeper:32181`  
-
 
 ### Test _Schema Registry_
 Code examples from [here](https://github.com/confluentinc/schema-registry#quickstart):  
@@ -43,11 +34,10 @@ Register a new version of a schema under the subject "Kafka-value":
 List all subjects:  
 `curl -X GET http://localhost:8081/subjects | jq`  
 
-
 ### Test _kafka connect_
 Check connector plugins:  
 `curl localhost:8083/connector-plugins | jq`  
-You shoud see _Twitter_ connector plugin:  
+You shoud see _Twitter_ connector plugin among other built in connectors:  
 > {  
     "class": "com.github.jcustenborder.kafka.connect.twitter.TwitterSourceConnector",  
     "type": "source",  
