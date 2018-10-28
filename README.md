@@ -52,9 +52,12 @@ Before starting the connector check existing topics:
 If **Twitter** topic exists, delete it:  
 `docker run --net=kafka-cluster --rm confluentinc/cp-kafka:5.0.0 kafka-topics --zookeeper zookeeper:32181 --delete --topic twitter` 
  
- Create _Twitter Source Connector_ via REST API call to _kafka connect_ listens on 8083 port:  
+Create _Twitter Source Connector_ via REST API call to _kafka connect_ listens on 8083 port:  
  `echo '{"name":"source-twitter","config":{"connector.class":"com.github.jcustenborder.kafka.connect.twitter.TwitterSourceConnector","tasks.max":"1","twitter.oauth.consumerKey":"WyBAPqB21h196UyENZATSnL3F","twitter.oauth.consumerSecret":"jQtSGi0tynigU51EkSfCNahqrBkHE18cH0xU2FttVzTKpNbcJO","twitter.oauth.accessToken":"908270057641463809-iju88vZOOTl2hiROMRA1XGLG1CnQPKI","twitter.oauth.accessTokenSecret":"r4L9oXix5wqoAD5GNIMtjRJOHuVO65mWLynhmmnD7sOW1","filter.keywords":"programming,java,kafka,scala","kafka.status.topic":"twitter","kafka.delete.topic":"twitter_del","process.deletes":"true"}}'| curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"`  
  
+Check id connector was created on server:  
+`curl localhost:8083/connectors`  
+
 Check if **Twitter** topic was created:  
 `docker run --net=kafka-cluster --rm confluentinc/cp-kafka:5.0.0 kafka-topics --zookeeper zookeeper:32181 --list | grep twitter`  
 
@@ -77,8 +80,19 @@ Delete connector:
 ### Create _SQream Sink Connector_
 `echo '{"name":"sqream-sink","config":{"connector.class":"JdbcSinkConnector","connection.url":"jdbc:Sqream://192.168.0.212:5000/master","connection.user":"sqream","connection.password":"sqream","tasks.max":"1","topics":"twitter","insert.mode":"insert","table.name.format":"twitter","fields.whitelist":"Id,CreatedAt,Text,Source,Truncated,InReplyToStatusId,InReplyToUserId,Favorited,Retweeted,FavoriteCount"}}' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"`  
 
+Check id connector was created on server:  
+`curl localhost:8083/connectors`  
 
-Test   
+Log inside _SQream_:  
 `docker run -it twitter-sqream-pipeline_sqreamd_1 bash -c "./sqream/build/ClientCmd --user=sqream --password=sqream -d master"`  
+
+Pause connector:  
+`curl -X PUT localhost:8083/connectors/sqream-sink/pause`  
+
+To restart connector:  
+`curl -X PUT localhost:8083/connectors/sqream-sink/resume`  
+
+Delete connector:  
+`curl -X DELETE localhost:8083/connectors/sqream-sink`  
 
 
