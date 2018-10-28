@@ -32,3 +32,14 @@ Register a new version of a schema under the subject "Kafka-value":
 List all subjects:  
 `curl -X GET http://localhost:8081/subjects | jq`  
 
+
+### Test _kafka connect_
+Check connector plugins:  
+`curl localhost:8083/connector-plugins | jq`  
+You shoud see _Twitter_ connector plugin:  
+> {  
+    "class": "com.github.jcustenborder.kafka.connect.twitter.TwitterSourceConnector",  
+    "type": "source",  
+    "version": "0.2-SNAPSHOT"  
+  },  
+  
