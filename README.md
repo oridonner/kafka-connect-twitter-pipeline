@@ -8,7 +8,7 @@ Create _Docker_ local network:
 This command will start _sqreamd_, _zookeeper_, 2 _kafka_ brokers (broker-1, broker-2), _schema registry_, _kafka connect_.  
 
 # Tests
-First check status of the containers:  
+First check status of the containers, executing this command:  
 `docker-compose ps`  
 If all containers  are up and running start the following funcionality tests.  
 
