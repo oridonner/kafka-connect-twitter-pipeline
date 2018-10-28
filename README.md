@@ -78,7 +78,7 @@ Delete connector:
 `echo '{"name":"sqream-sink","config":{"connector.class":"JdbcSinkConnector","connection.url":"jdbc:Sqream://192.168.0.212:5000/master","connection.user":"sqream","connection.password":"sqream","tasks.max":"1","topics":"twitter","insert.mode":"insert","table.name.format":"twitter","fields.whitelist":"Id,CreatedAt,Text,Source,Truncated,InReplyToStatusId,InReplyToUserId,Favorited,Retweeted,FavoriteCount"}}' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"`  
 
 
-Test 
+Test   
 `docker run --net=kafka-cluster -it twitter-sqream-pipeline_sqreamd_1 bash -c "./sqream/build/ClientCmd --user=sqream --password=sqream -d master"`  
 
 
