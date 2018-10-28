@@ -59,7 +59,7 @@ Check if **Twitter** topic was created:
 `docker run --net=host --rm confluentinc/cp-kafka:5.0.0 kafka-topics --zookeeper localhost:32181 --list | grep twitter`  
 
 Check connector status:  
-`curl localhost:28083/connectors/source-twitter/status | jq`<br />
+`curl localhost:8083/connectors/source-twitter/status | jq`  
 
 Read data from topic with _Avro_ consumer:   
 Pay attention to the `--property` flag added at the end, it is required when running _kafka-avro-console-consumer_ over local _docker_ network:  
