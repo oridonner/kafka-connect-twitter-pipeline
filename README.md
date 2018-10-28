@@ -52,8 +52,27 @@ Before starting the connector check existing topics:
 If **Twitter** topic exists, delete it:  
 `docker run --net=kafka-cluster --rm confluentinc/cp-kafka:5.0.0 kafka-topics --zookeeper zookeeper:32181 --delete --topic twitter` 
  
- Create _Twitter Source Connector_ via REST API call to _kafka connect_ listens on 8083 port:
+ Create _Twitter Source Connector_ via REST API call to _kafka connect_ listens on 8083 port:  
  `echo '{"name":"source-twitter","config":{"connector.class":"com.github.jcustenborder.kafka.connect.twitter.TwitterSourceConnector","tasks.max":"1","twitter.oauth.consumerKey":"WyBAPqB21h196UyENZATSnL3F","twitter.oauth.consumerSecret":"jQtSGi0tynigU51EkSfCNahqrBkHE18cH0xU2FttVzTKpNbcJO","twitter.oauth.accessToken":"908270057641463809-iju88vZOOTl2hiROMRA1XGLG1CnQPKI","twitter.oauth.accessTokenSecret":"r4L9oXix5wqoAD5GNIMtjRJOHuVO65mWLynhmmnD7sOW1","filter.keywords":"programming,java,kafka,scala","kafka.status.topic":"twitter","kafka.delete.topic":"twitter_del","process.deletes":"true"}}'| curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"`  
+ 
+Check if **Twitter** topic was created:  
+`docker run --net=host --rm confluentinc/cp-kafka:5.0.0 kafka-topics --zookeeper localhost:32181 --list | grep twitter`  
+
+Check connector status:  
+`curl localhost:28083/connectors/source-twitter/status | jq`<br />
+
+Read data from topic with _Avro_ consumer:   
+Pay attention to the `--property` flag added at the end, it is required when running _kafka-avro-console-consumer_ over local _docker_ network:  
+`docker run --net=kafka-cluster --rm confluentinc/cp-schema-registry:5.0.0 kafka-avro-console-consumer --bootstrap-server broker-1:29092 --topic twitter --from-beginning --property schema.registry.url="http://schema-registry:8081"`  
+
+Pause connector:  
+`curl -X PUT localhost:8083/connectors/source-twitter/pause`  
+
+To restart connector:  
+`curl -X PUT localhost:8083/connectors/source-twitter/resume`  
+
+Delete connector:  
+`curl -X DELETE localhost:8083/connectors/source-twitter`  
 
 
 
