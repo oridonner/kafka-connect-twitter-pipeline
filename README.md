@@ -1,4 +1,4 @@
-# Start _Kafka Cluster_
+# Start _docker_ containers  
 Before starting up the cluster create a storage folder for _sqream storage_ inside local **data** folder:  
 `docker run --rm -v $(pwd)/data:/mnt sqream:2.15-dev bash -c "./sqream/build/SqreamStorage -C -r /mnt/sqream_storage"`  
 
