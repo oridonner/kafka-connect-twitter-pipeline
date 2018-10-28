@@ -1,14 +1,18 @@
-# Prerequisites
-Start _sqream storage_ inside local **data** folder:  
-`docker run --rm -v $(pwd)/data:/mnt sqream:2.15-dev bash -c "./sqream/build/SqreamStorage -C -r /mnt/sqream_storage"`    
 
 # Start _Kafka Cluster_
+Before starting up the cluster create a storage folder for _sqream storage_ inside local **data** folder:  
+`docker run --rm -v $(pwd)/data:/mnt sqream:2.15-dev bash -c "./sqream/build/SqreamStorage -C -r /mnt/sqream_storage"`  
+
 Create _Docker_ local network:   
 `docker network create kafka-cluster`  
 `docker-compose up`  
 This command will start _sqreamd_, _zookeeper_, 2 _kafka_ brokers (broker-1, broker-2), _schema registry_, _kafka connect_.  
 
-# Testing
+# Tests
+First check status of the containers:  
+`docker-compose ps`  
+If all containers  are up and running start the following funcionality tests.  
+
 ### Test _Kafka Broker_
 Test if _Kafka Broker_ is running by createing a topic:  
 `docker run --net=kafka-cluster --rm confluentinc/cp-kafka:5.0.0 kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181`
