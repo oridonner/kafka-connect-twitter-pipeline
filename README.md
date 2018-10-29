@@ -44,6 +44,27 @@ You shoud see _Twitter_ connector plugin among other built in connectors:
     "version": "0.2-SNAPSHOT"  
   },  
   
+### Test listeners
+Mapped internal broker listerners can't be used by _schema registry_ as discussed [here](https://github.com/confluentinc/schema-registry/issues/648), and remains PLAINTEXT.  
+External broker listeners is named EXTERNAL, and mapped to PLAINTEXT security protocol.  
+
+Run a container configed to _kafka-cluster_ network:  
+`docker run -it --rm --network=kafka-cluster kstet:1.0.0 bash`  
+
+Test listeners from inside of the container:  
+Test internal listener:  
+`kafkacat -b broker-1:29092 -L`  
+`kafkacat -b broker-2:29092 -L` 
+
+Test external listener:  
+`kafkacat -b broker-1:9092 -L`  
+`kafkacat -b broker-2:9093 -L`  
+
+Test external listener from host:  
+`kafkacat -b 172.17.0.1:9093 -L`  
+
+172.17.0.1 is _docker0_ ip 
+
 # Build Connectors
 ### Build _Twitter Source Connector_
 Before starting the connector check existing topics:  
