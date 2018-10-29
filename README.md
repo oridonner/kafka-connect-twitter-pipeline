@@ -68,6 +68,9 @@ Read data from topic with _Avro_ consumer:
 Pay attention to the `--property` flag added at the end, it is required when running _kafka-avro-console-consumer_ over local _docker_ network:  
 `docker run --net=kafka-cluster --rm confluentinc/cp-schema-registry:5.0.0 kafka-avro-console-consumer --bootstrap-server broker-1:29092 --topic twitter --from-beginning --property schema.registry.url="http://schema-registry:8081"`  
 
+Check topic schema:  
+`curl -X GET http://localhost:8081/schemas/ids/2`  
+
 Pause connector:  
 `curl -X PUT localhost:8083/connectors/source-twitter/pause`  
 
