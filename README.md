@@ -59,10 +59,8 @@ Test external listener:
 `kafkacat -b broker-1:9092 -L`  
 `kafkacat -b broker-2:9093 -L`  
 
-Test external listener from host:  
+Test external listener from host, where 172.17.0.1 is _docker0_ ip:  
 `kafkacat -b 172.17.0.1:9093 -L`  
-
-172.17.0.1 is _docker0_ ip 
 
 # Build Connectors
 ### Build _Twitter Source Connector_
