@@ -47,7 +47,7 @@ You shoud see _Twitter_ connector plugin among other built in connectors:
 ### Test listeners
 Mapped internal broker listerners can't be used by _schema registry_ as discussed [here](https://github.com/confluentinc/schema-registry/issues/648), and remains PLAINTEXT. External broker listeners is named EXTERNAL, and mapped to PLAINTEXT security protocol.  
 
-Run a container configed to _kafka-cluster_ network:  
+Run a **kstet** container configed to _kafka-cluster_ network:  
 `docker run -it --rm --network=kafka-cluster kstet:1.0.0 bash`  
 
 Test listeners from inside of the container:  
