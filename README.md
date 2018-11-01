@@ -101,7 +101,7 @@ Delete connector:
 ### Create _SQream Sink Connector_
 `echo '{"name":"sqream-sink","config":{"connector.class":"JdbcSinkConnector","connection.url":"jdbc:Sqream://192.168.0.212:5000/master","connection.user":"sqream","connection.password":"sqream","tasks.max":"1","topics":"twitter","insert.mode":"insert","table.name.format":"twitter","fields.whitelist":"Id,CreatedAt,Text,Source,Truncated,InReplyToStatusId,InReplyToUserId,Favorited,Retweeted,FavoriteCount"}}' | curl -X POST -d @- http://localhost:8083/connectors --header "content-Type:application/json"`  
 
-Check id connector was created on server:  
+Check if connector was created:  
 `curl localhost:8083/connectors`  
 
 Log inside _SQream_:  
