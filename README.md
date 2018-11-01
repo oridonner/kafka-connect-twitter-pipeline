@@ -35,7 +35,7 @@ Delete subject:
 `curl -X DELETE http://localhost:8081/subjects/Kafka-key`  
 
 ### Test _kafka connect_
-Check connector plugins:  
+Check available connector plugins:  
 `curl localhost:8083/connector-plugins | jq`  
 You shoud see _Twitter_ connector plugin among other built in connectors:  
 > {  
