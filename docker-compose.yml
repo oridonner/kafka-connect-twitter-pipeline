@@ -99,8 +99,8 @@ services:
       CONNECT_REST_ADVERTISED_HOST_NAME: "connect"
       CONNECT_PLUGIN_PATH: /usr/share/java,/etc/kafka-connect/jars
     volumes:
-      - ./twitter-connector-plugin:/usr/share/java/kafka-connect-twitter
-      - ./sqream-jdbc:/usr/share/java/kafka-connect-jdbc/sqream
+      - ./libs/twitter-connector-plugin:/usr/share/java/kafka-connect-twitter
+      - ./libs/sqream-jdbc:/usr/share/java/kafka-connect-jdbc/sqream
 ##########################################################################################
 networks:
 ##########################################################################################
